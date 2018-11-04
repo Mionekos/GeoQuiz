@@ -31,6 +31,7 @@ public class QuizActivity extends AppCompatActivity {
     private int mCountRightAnswer = 0;
 
 
+
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
@@ -178,8 +179,6 @@ public class QuizActivity extends AppCompatActivity {
         saveInstanceState.putInt(KEY_INDEX,mCurrentIndex);
         saveInstanceState.putBoolean(KEY_CHEAT,mIsCheater);
     }
-
-
 
     @Override
     protected void onStop(){
