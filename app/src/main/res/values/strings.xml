@@ -17,5 +17,6 @@
     <string name="cheat_button">Cheat!</string>
     <string name="judgment_toast">Cheating is wrong.</string>
     <string name="show_api_device">API</string>
+    <string name="show_count_cheats">Cheats</string>
 
 </resources>

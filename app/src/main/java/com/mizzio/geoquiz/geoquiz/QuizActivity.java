@@ -21,6 +21,7 @@ public class QuizActivity extends AppCompatActivity {
     private static final String KEY_INDEX = "index";
     private static final String KEY_CHEAT = "cheat";
     private static final int REQUEST_CODE_CHEAT = 0;
+    private static final String COUNT_CHEATS = "count_cheats";
 
     private Button mTrueButton;
     private Button mFalseButton;
@@ -43,6 +44,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
+    private int mCountCheats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,8 @@ public class QuizActivity extends AppCompatActivity {
         if (savedInstanceState != null){
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX,0);
             mIsCheater = savedInstanceState.getBoolean(KEY_CHEAT,false);
+            mCountCheats = savedInstanceState.getInt(COUNT_CHEATS, 3);
         }
-
-
 
         mQuestionTextView = findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +80,6 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-
-
         mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +90,11 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-
         mNextButton = findViewById(R.id.next_button);
         mNextButton.setEnabled(false);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNextButton.setClickable(false);
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 mIsCheater = false;
                 updateQuestion();
@@ -117,7 +114,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-                Intent intent = CheatActivity.newIntent(QuizActivity.this,answerIsTrue);
+                Intent intent = CheatActivity.newIntent(QuizActivity.this,answerIsTrue,mCountCheats);
                 startActivityForResult(intent,REQUEST_CODE_CHEAT);
 
             }
@@ -135,7 +132,8 @@ public class QuizActivity extends AppCompatActivity {
             if (data == null){
                 return;
             }
-            mIsCheater = CheatActivity.wasAnswerShown(data);
+            mIsCheater = data.getBooleanExtra("com.mizzio.geoquiz.qeoquiz.answer_shown",false);
+            mCountCheats = data.getIntExtra("count_cheats",0);
         }
     }
 
@@ -186,6 +184,7 @@ public class QuizActivity extends AppCompatActivity {
         Log.i(TAG,"onSaveInstanceState");
         saveInstanceState.putInt(KEY_INDEX,mCurrentIndex);
         saveInstanceState.putBoolean(KEY_CHEAT,mIsCheater);
+        //saveInstanceState.putInt(COUNT_CHEATS,mCountCheats);
 
     }
 
