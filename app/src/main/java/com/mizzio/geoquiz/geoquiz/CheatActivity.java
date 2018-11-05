@@ -25,6 +25,7 @@ public class CheatActivity extends AppCompatActivity {
     private TextView mAnswerTextView;
     private Button mShowAnswerButton;
     private boolean mRememberAnswer;
+    private TextView mShowAPIDevice;
 
     public static Intent newIntent(Context packageContext, boolean answerIsTrue){
         Intent intent = new Intent(packageContext,CheatActivity.class);
@@ -53,7 +54,8 @@ public class CheatActivity extends AppCompatActivity {
         mAnswerTextView.setText(text);
         setShowAnswerResult(mRememberAnswer);
 
-
+        mShowAPIDevice = findViewById(R.id.show_api_device);
+        mShowAPIDevice.setText("API Level "+String.valueOf(Build.VERSION.SDK_INT));
 
         mShowAnswerButton = findViewById(R.id.show_answer_button);
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
