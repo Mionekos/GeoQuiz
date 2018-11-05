@@ -15,10 +15,12 @@ public class CheatActivity extends AppCompatActivity {
     private static final String EXTRA_ANSWER_SHOWN = "com.mizzio.geoquiz.qeoquiz.answer_shown";
     private static final String TAG = "CheatActivity";
     private static final String TEXT_ANSWER = "text_answer";
+    private static final String REMEMBER_ANSWER = "remember_answer";
 
     private boolean mAnswerIsTrue;
     private TextView mAnswerTextView;
     private Button mShowAnswerButton;
+    private boolean mRememberAnswer;
 
     public static Intent newIntent(Context packageContext, boolean answerIsTrue){
         Intent intent = new Intent(packageContext,CheatActivity.class);
@@ -40,13 +42,12 @@ public class CheatActivity extends AppCompatActivity {
         mAnswerTextView = findViewById(R.id.answer_text_view);
         String text = "";
 
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null){
             text = savedInstanceState.getString(TEXT_ANSWER);
+            mRememberAnswer = savedInstanceState.getBoolean(REMEMBER_ANSWER);
         }
         mAnswerTextView.setText(text);
-
-
-
+        setShowAnswerResult(mRememberAnswer);
 
         mShowAnswerButton = findViewById(R.id.show_answer_button);
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +59,8 @@ public class CheatActivity extends AppCompatActivity {
                 else {
                     mAnswerTextView.setText(R.string.false_button);
                 }
-                setShowAnswerResult(true);
+                mRememberAnswer = true;
+                setShowAnswerResult(mRememberAnswer);
 
             }
         });
@@ -91,6 +93,7 @@ public class CheatActivity extends AppCompatActivity {
         super.onSaveInstanceState(saveInstanceState);
         TextView textAnswer = findViewById(R.id.answer_text_view);
         saveInstanceState.putString(TEXT_ANSWER,textAnswer.getText().toString());
+        saveInstanceState.putBoolean(REMEMBER_ANSWER,mRememberAnswer);
         Log.i(TAG,"onSaveInstanceState");
     }
 
