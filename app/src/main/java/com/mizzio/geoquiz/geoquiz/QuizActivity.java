@@ -43,7 +43,6 @@ public class QuizActivity extends AppCompatActivity {
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
