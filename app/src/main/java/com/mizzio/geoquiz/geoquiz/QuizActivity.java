@@ -40,6 +40,7 @@ public class QuizActivity extends AppCompatActivity {
             new Question(R.string.question_asia, true),
     };
 
+
     private int mCurrentIndex = 0;
     private boolean mIsCheater;
 
