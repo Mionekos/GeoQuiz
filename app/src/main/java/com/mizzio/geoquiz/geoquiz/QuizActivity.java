@@ -30,8 +30,7 @@ public class QuizActivity extends AppCompatActivity {
     private TextView mQuestionTextView;
     private int mCountRightAnswer = 0;
 
-
-
+    
     private Question[] mQuestionBank = new Question[]{
             new Question(R.string.question_australia, true),
             new Question(R.string.question_oceans, true),
