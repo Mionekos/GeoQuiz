@@ -49,6 +49,8 @@ public class CheatActivity extends AppCompatActivity {
         mAnswerTextView.setText(text);
         setShowAnswerResult(mRememberAnswer);
 
+        Log.i("qweqw", "qwe");
+
         mShowAnswerButton = findViewById(R.id.show_answer_button);
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
