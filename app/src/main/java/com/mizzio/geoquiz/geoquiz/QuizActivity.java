@@ -57,10 +57,12 @@ public class QuizActivity extends AppCompatActivity {
         }
 
 
+
         mQuestionTextView = findViewById(R.id.question_text_view);
         mQuestionTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
             }
@@ -71,30 +73,36 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
-                mFalseButton.setClickable(false);
+                mFalseButton.setEnabled(false);
+                mNextButton.setEnabled(true);
                 mCountRightAnswer+=1;
 
             }
         });
+
+
+
         mFalseButton = (Button) findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(false);
-                mTrueButton.setClickable(false);
+                mTrueButton.setEnabled(false);
+                mNextButton.setEnabled(true);
             }
         });
 
-
         mNextButton = findViewById(R.id.next_button);
+        mNextButton.setEnabled(false);
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mNextButton.setClickable(false);
                 mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 mIsCheater = false;
                 updateQuestion();
-                mTrueButton.setClickable(true);
-                mFalseButton.setClickable(true);
+                mTrueButton.setEnabled(true);
+                mFalseButton.setEnabled(true);
                 if (mCurrentIndex == 0){
                     //Toast.makeText(this,'gf',Toast.LENGTH_SHORT).show();
                     Toast.makeText(getApplicationContext(),"Правильных ответов "+(mCountRightAnswer*100)/6+" %",Toast.LENGTH_LONG).show();
@@ -178,6 +186,7 @@ public class QuizActivity extends AppCompatActivity {
         Log.i(TAG,"onSaveInstanceState");
         saveInstanceState.putInt(KEY_INDEX,mCurrentIndex);
         saveInstanceState.putBoolean(KEY_CHEAT,mIsCheater);
+
     }
 
     @Override
